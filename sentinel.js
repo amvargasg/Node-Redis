@@ -4,7 +4,7 @@ const sentinel = require('redis-sentinel');
 const endpoints = [
     {host: 'redis-cluster.integracion.svc.cluster.local', port: 6379}, 
     {host: 'redis.integracion.svc.cluster.local', port: 6379},
-    {host: 'redis-sentinel.integracion.svc.cluster.locall', port: 5000}
+    {host: 'redis-sentinel.integracion.svc.cluster.local', port: 5000}
 ];
  
 const opts = {}; // Standard node_redis client options
