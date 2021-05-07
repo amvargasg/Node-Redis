@@ -2,8 +2,8 @@ const sentinel = require('redis-sentinel');
  
 // List the sentinel endpoints
 const endpoints = [
-    {host: 'redis-cluster', port: 6379},
-    {host: 'redis-sentinel', port: 5000}
+    {host: 'redis-cluster', port: 6379}//,
+    //{host: 'redis-sentinel', port: 5000}
 ];
 
 const opts = {}; // Standard node_redis client options
