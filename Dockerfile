@@ -9,7 +9,6 @@ RUN npm update
 
 COPY . .
 
-EXPOSE 3001
 EXPOSE 8000
 
 
