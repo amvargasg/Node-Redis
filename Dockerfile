@@ -8,8 +8,8 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8000
-EXPOSE 3001
+EXPOSE 6379
+EXPOSE 5000
 
 
 CMD [ "node", "getData.js" ]
