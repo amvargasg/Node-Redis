@@ -25,6 +25,6 @@ module.exports = {
 };
 
 // The master is the default case if no role is specified.
-const masterClient = sentinel.createClient(endpoints, masterName, {role: 'master'}); 
-const slaveClient = sentinel.createClient(endpoints, masterName, {role: 'slave'});
-const sentinelClient = sentinel.createClient(endpoints, {role: 'sentinel'});
+//const masterClient = sentinel.createClient(endpoints, masterName, {role: 'master'}); 
+//const slaveClient = sentinel.createClient(endpoints, masterName, {role: 'slave'});
+//const sentinelClient = sentinel.createClient(endpoints, {role: 'sentinel'});
