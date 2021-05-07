@@ -1,16 +1,19 @@
-const sentinel = require('redis-sentinel');
+import sentinel from 'redis-sentinel'
+//const sentinel = require('redis-sentinel');
  
 // List the sentinel endpoints
 const endpoints = [
     {host: 'redis-cluster', port: 6379},
     {host: 'redis-sentinel', port: 5000}
 ];
- 
-const opts = {}; // Standard node_redis client options
-const masterName = 'mymaster';
- 
+const sentinel = sentinel.sentinel(endpoints)
+//const opts = {}; // Standard node_redis client options
+//const masterName = 'mymaster';
+//const redis = sentinel.createClient('master', {})
+const redisClient = sentinel.createClient('master', {})
+
 // masterName and opts are optional - masterName defaults to 'mymaster'
-const redisClient = sentinel.createClient(endpoints, masterName, opts);
+//const redisClient = sentinel.createClient(endpoints, masterName, opts);
 
 redisClient.on("connect", function() {
     console.log("You are now connected");
