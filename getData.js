@@ -1,6 +1,6 @@
 const express = require('express');
-//const conn = require('./conecction');
-const conn = require('./sentinel');
+const conn = require('./conecction');
+//const conn = require('./sentinel');
 const convert = require('./convert');
 
 const app = express();
