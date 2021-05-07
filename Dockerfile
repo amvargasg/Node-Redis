@@ -10,6 +10,7 @@ RUN npm update
 COPY . .
 
 EXPOSE 8000
+EXPOSE 3001
 
 
 CMD [ "node", "getData.js" ]
