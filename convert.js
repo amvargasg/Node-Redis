@@ -4,8 +4,8 @@ const xml2js = require('xml2js');
 
 const port = 3001;
 const app = express();
-//const conn = require('./conecction');
-const conn = require('./sentinel');
+const conn = require('./conecction');
+//const conn = require('./sentinel');
 
 app.get('/proteccion/insertar_datos/:key', (req, res) => { 
 
