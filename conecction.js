@@ -3,7 +3,7 @@ const redis = require("redis");
 const connection = 
 { 
     port      : 6379,                 // replace with your port
-    host      : 'openshift-poc',        // replace with your hostanme or IP address
+    host      : '172.21.29.158',        // replace with your hostanme or IP address
 } ;
 
 const client = redis.createClient(connection);
