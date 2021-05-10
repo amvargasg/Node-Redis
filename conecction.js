@@ -4,7 +4,7 @@ const connection =
 { 
     port      : 6379,                 // replace with your port
     host      : 'redis.integracion.svc.cluster.local',      // replace with your hostanme or IP address
-    password: 'admin'
+    password  : 'admin'
 } ;
 
 const client = redis.createClient(connection);
