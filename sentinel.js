@@ -9,9 +9,10 @@ const endpoints = [
  
 const opts = {}; // Standard node_redis client options
 const masterName = 'mymaster';
+const password = 'admin';
  
 // masterName and opts are optional - masterName defaults to 'mymaster'
-const redisClient = sentinel.createClient(endpoints, masterName, opts);
+const redisClient = sentinel.createClient(endpoints, masterName, opts, password);
 
 redisClient.on("connect", function() {
     console.log("You are now connected");
