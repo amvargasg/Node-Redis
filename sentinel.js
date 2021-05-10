@@ -3,7 +3,7 @@ const sentinel = require('redis-sentinel');
 // List the sentinel endpoints
 const endpoints = [
     {port: 6379, host: 'redis.integracion.svc.cluster.local'}, //redis cluster
-    {port: 26379, host: 'redis-sentinel.integracion.svc.cluster.local'}
+    {port: 5000, host: 'redis-sentinel.integracion.svc.cluster.local'}
    // {host: 'redis-sentinel', port:'redis.integracion.svc.cluster.local'}
 ];
  
