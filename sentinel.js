@@ -13,6 +13,7 @@ const auth_pass= 'admin';
  
 // masterName and opts are optional - masterName defaults to 'mymaster'
 const redisClient = sentinel.createClient(endpoints, masterName, opts, no_ready_check, auth_pass);
+redisClient.auth(config.redis.password);
 
 redisClient.on("connect", function() {
     console.log("Connected");
