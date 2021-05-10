@@ -1,0 +1,15 @@
+{
+    "WMB_FW_CORE_ROUTING_MST": {
+        
+            "gatewayTimerQ":"EG_LABEL",
+        
+            "gatewayInQ":"GATEWAY_IN_MQ" ,
+       
+            "gatewayOutQ":"GATEWAY_OUT_MQ",
+       
+            "timerQ":"TIMER_Q",
+      
+            "gatewayCallerQ":"GATEWAYCALLER_IN_MQ" 
+        
+    }
+}
