@@ -16,7 +16,7 @@ const redisClient = sentinel.createClient(endpoints, masterName, opts);
 
 redisClient.on("connect", function() {
     console.log("Connected");
-    console.log(auth_pass);
+ 
   });
 
   redisClient.on('error', err => {       
