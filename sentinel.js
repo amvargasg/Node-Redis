@@ -8,6 +8,8 @@ const endpoints = [
  
 const opts = {}; // Standard node_redis client options
 const masterName = 'mymaster';
+const no_ready_check = true;
+const auth_pass= 'admin';
  
 // masterName and opts are optional - masterName defaults to 'mymaster'
 const redisClient = sentinel.createClient(endpoints, masterName, opts);
@@ -16,7 +18,7 @@ const redisClient = sentinel.createClient(endpoints, masterName, opts);
 
 redisClient.on("connect", function() {
     console.log("Connected");
- 
+    console.log(auth_pass);
   });
 
   redisClient.on('error', err => {       
