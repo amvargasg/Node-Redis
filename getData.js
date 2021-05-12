@@ -1,8 +1,7 @@
 const express = require('express');
 const fs = require('fs');
-//const conn = require('./conecction');
-const conn = require('./sentinel');
-//const convert = require('./convert');
+const conn = require('./conecction');
+//const conn = require('./sentinel');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 
