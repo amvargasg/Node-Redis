@@ -1,4 +1,4 @@
-def templateName = 'node-redis'
+def templateName = 'node-redisv6'
 def templatePath = 'https://github.com/mariaelisacf/Node-Redis/blob/master/node-redis-template.json' 
 
 pipeline {
@@ -72,10 +72,16 @@ pipeline {
     
     stage('build') {
         steps{
-            script {
-                sh 'oc start-build node-redis'
-                
+          openshift.withCluster(){
+            openshift.withProject(){
+              def bc = openshift.selector("bc"),templateName).related('builds')
+              timeout(10){
+                builds.untilEach(1){
+                  return (it.object().status.phase == "Complete")
+                }
+              }
             }
+          }
         }
         
     }  
