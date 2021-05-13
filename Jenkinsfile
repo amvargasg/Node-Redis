@@ -72,6 +72,7 @@ pipeline {
     
     stage('build') {
         steps {
+          script{
           openshift.withCluster() {
             openshift.withProject() {
               def bc = openshift.selector("bc",templateName).related('builds')
@@ -82,6 +83,7 @@ pipeline {
               }
             }
           }
+        }
         }
         
     }  
