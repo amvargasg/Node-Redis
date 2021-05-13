@@ -73,19 +73,11 @@ pipeline {
     stage('build') {
         steps{
             script {
-                //sh 'oc start-build node-redis'
-                /* openshift.withCluster() {
-                    openshift.withProject() {
-                        
-                        def buildSelector = bc.startBuild('node-redis')
-                        //buildSelector.logs('-f')
-                    }
-                } */
+                sh 'oc start-build node-redis'
+                
             }
         }
         
-    }
-  
-  }  
+    }  
   
 }
