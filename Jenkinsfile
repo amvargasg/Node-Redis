@@ -71,12 +71,12 @@ pipeline {
     }
     
     stage('build') {
-        steps{
-          openshift.withCluster(){
-            openshift.withProject(){
+        steps {
+          openshift.withCluster() {
+            openshift.withProject() {
               def bc = openshift.selector("bc"),templateName).related('builds')
               timeout(10){
-                builds.untilEach(1){
+                bc.untilEach(1){
                   return (it.object().status.phase == "Complete")
                 }
               }
