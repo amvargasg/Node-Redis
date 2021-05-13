@@ -1,5 +1,5 @@
 def templateName = 'node-redis'
-def templatePath = 'https://github.com/mariaelisacf/Node-Redis' 
+def templatePath = 'https://github.com/mariaelisacf/Node-Redis/blob/master/node-redis-template.json' 
 
 pipeline {
   
