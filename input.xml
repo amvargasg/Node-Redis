@@ -15,9 +15,7 @@
         <URI>Q_FW_MDM_WS_ADAPTER_IN</URI>
         <XSLTRq>{co.com.proteccion.integracion.afp.persona.adapter.ws}:ESBCanonico_TO_PersonasService_consultarInformacionPersonas</XSLTRq>
         <XSLTRs>{co.com.proteccion.integracion.afp.persona.adapter.ws}:PersonasService_consultarInformacionPersonas_TO_ESBCanonico</XSLTRs>
-        <EndPointURL>
-          <![CDATA[https://afpcorepruebas.proteccion.local/ServiciosMediacionWS/PersonasService]]>
-        </EndPointURL>
+        <EndPointURL>https://afpcorepruebas.proteccion.local/ServiciosMediacionWS/PersonasService</EndPointURL>
         <LegacyServiceOperationName>consultarInformacionPersonas</LegacyServiceOperationName>
         <SOAPActionName>http://client.personas.previsiona.heinsohn.com//consultarInformacionPersonas</SOAPActionName>
         <LegacyServiceName>PersonasService</LegacyServiceName>
@@ -33,9 +31,7 @@
       <URI>Q_FW_MDM_DEFAULT_AIF_IN</URI>
       <Adapter name="DATABASEADAPTER">
         <URI>Q_FW_DB_MDM_ADAPTER_IN</URI>
-        <EndPointURL>
-          <![CDATA[Q.DBCOMM.MDM.AFILIADOPRODUCTOCONSULTA.IN]]>
-        </EndPointURL>
+        <EndPointURL>Q.DBCOMM.MDM.AFILIADOPRODUCTOCONSULTA.IN</EndPointURL>
         <LegacyServiceOperationName>AfiliadoProductoConsultaAFP</LegacyServiceOperationName>
         <SOAPActionName>Q_FW_DB_MDM_ADAPTER_RECEIVE</SOAPActionName>
         <LegacyServiceName>AfiliadoProductoConsultaAFP</LegacyServiceName>
