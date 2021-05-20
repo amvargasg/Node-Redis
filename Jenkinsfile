@@ -73,7 +73,7 @@ pipeline {
     stage('build') {
         steps{
             script {
-                //sh 'oc start-build node-redis'
+                sh 'oc start-build node-redis'
                 /* openshift.withCluster() {
                     openshift.withProject() {
                         
