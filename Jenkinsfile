@@ -1,5 +1,5 @@
 def templateName = 'node-redis'
-def templatePath = 'https://github.com/mariaelisacf/Node-Redis/blob/master/node-redis-template.json' 
+def templatePath = 'https://github.com/mariaelisacf/Node-Redis' 
 
 pipeline {
   
@@ -84,8 +84,37 @@ pipeline {
             }
           }
         }
-        }
+      }
         
-    }  
-  }
+    }
+
+  stage('deploy') {
+      steps {
+        script {
+            openshift.withCluster() {
+                openshift.withProject() {
+                  def rm = openshift.selector("dc", templateName).rollout().latest()
+                  timeout(5) { 
+                    openshift.selector("dc", templateName).related('pods').untilEach(1) {
+                      return (it.object().status.phase == "Running")
+                    }
+                  }
+                }
+            }
+        }
+      }
+    }
+    
+    stage('tag') {
+      steps {
+        script {
+            openshift.withCluster() {
+                openshift.withProject() {
+                  openshift.tag("${templateName}:latest", "${templateName}-staging:latest") 
+                }
+            }
+        }
+      }
+    }
+
 }
