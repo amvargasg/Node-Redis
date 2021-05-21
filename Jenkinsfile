@@ -38,6 +38,38 @@ pipeline {
       }
     } // end of stage 'cleanup'
     
+    stage('create') {
+        
+       when {
+           expression {
+               openshift.withCluster() {
+                   return !openshift.selector('bc', templateName).exists()
+                }
+            }    
+       }
+        
+      steps {
+        script {
+            openshift.withCluster() {
+                openshift.withProject() {
+                  def created = openshift.newApp(templatePath,  "--as-deployment-config"  )
+                  echo "new-app created ${created.count()} objects named: ${created.names()}"
+                  created.describe()
+                  echo "The build config which new-app just created"
+                  def bc = created.narrow('bc')
+                  echo "${bc.describe()}"
+                  /*echo "build logs"
+                  def result = bc.logs('-f')
+                  echo "The logs operation require ${result.actions.size()} oc interactions"
+                  echo "oc command executed"
+                  echo "Logs executed: ${result.actions[0].cmd}"
+                  */  
+                }
+            }
+        }
+      }
+    }// end of stage 'create'
+    
   }// end of stages
   
 }// end of pipeline
