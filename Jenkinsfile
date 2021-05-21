@@ -88,6 +88,18 @@ pipeline {
         }
     }// end of stage 'deploy'
     
+    stage('tag') {
+      steps {
+        script {
+            openshift.withCluster() {
+                openshift.withProject() {
+                  openshift.tag("${templateName}:latest", "${templateName}-staging:latest") 
+                }
+            }
+        }
+      }
+    }// end of stage 'tag'
+    
   }// end of stages
   
 }// end of pipeline
