@@ -20,7 +20,24 @@ pipeline {
                 }
             }
         }
-    }
-  }
+    }// end of stage 'preamble'
+    
+    stage('cleanup') {
+      steps {
+        script {
+            openshift.withCluster() {
+                openshift.withProject() {
+                  openshift.selector("all", [ template : templateName ]).delete() 
+                  if (openshift.selector("secrets", templateName).exists()) { 
+                    openshift.selector("secrets", templateName).delete()
+                  }
+                  echo "Cleanup done"
+                }
+            }
+        }
+      }
+    } // end of stage 'cleanup'
+    
+  }// end of stages
   
-}
+}// end of pipeline
