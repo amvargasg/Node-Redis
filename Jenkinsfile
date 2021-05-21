@@ -52,13 +52,14 @@ pipeline {
         script {
             openshift.withCluster() {
                 openshift.withProject() {
-                  def created = openshift.newApp(templatePath,  "--as-deployment-config"  )
+                  sh 'oc new-app --name redis-nodejs nodejs:latest~https://github.com/mariaelisacf/Node-Redis --strategy=docker'
+                  /*def created = openshift.newApp(templatePath,  "--as-deployment-config"  )
                   echo "new-app created ${created.count()} objects named: ${created.names()}"
                   created.describe()
                   echo "The build config which new-app just created"
                   def bc = created.narrow('bc')
                   echo "${bc.describe()}"
-                  /*echo "build logs"
+                  echo "build logs"
                   def result = bc.logs('-f')
                   echo "The logs operation require ${result.actions.size()} oc interactions"
                   echo "oc command executed"
