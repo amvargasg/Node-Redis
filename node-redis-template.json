@@ -165,7 +165,7 @@
 									"initialDelaySeconds": 30,
 									"timeoutSeconds": 3
 								},
-								"name": "nodejs-example",
+								"name": "${NAME}",
 								"ports": [
 									{
 										"containerPort": 8080
@@ -221,14 +221,14 @@
 			"name": "NAMESPACE",
 			"displayName": "Namespace",
 			"description": "The OpenShift Namespace where the ImageStream resides.",
-			"value": "openshift",
+			"value": "nexus",
 			"required": true
 		},
 		{
 			"name": "NODEJS_VERSION",
 			"displayName": "Version of NodeJS Image",
 			"description": "Version of NodeJS image to be used (10, 12, or latest).",
-			"value": "12",
+			"value": "15",
 			"required": true
 		},
 		{
@@ -242,7 +242,7 @@
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
 			"description": "The URL of the repository with your application source code.",
-			"value": "https://github.com/amvargasg/Node-Redis",
+			"value": "https://github.com/mariaelisacf/Node-Redis",
 			"required": true
 		},
 		{
