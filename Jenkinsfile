@@ -52,7 +52,7 @@ pipeline {
         script {
             openshift.withCluster() {
                 openshift.withProject() {
-                  sh 'oc new-app --name ${templateName} nodejs:latest~https://github.com/mariaelisacf/Node-Redis --strategy=docker'
+                  sh 'oc new-app --name node-redis nodejs:latest~https://github.com/mariaelisacf/Node-Redis --strategy=docker'
                   /*def created = openshift.newApp(templatePath,  "--as-deployment-config"  )
                   echo "new-app created ${created.count()} objects named: ${created.names()}"
                   created.describe()
