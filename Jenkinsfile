@@ -70,6 +70,23 @@ pipeline {
       }
     }// end of stage 'create'
     
+    stage('build') {
+        steps {
+          script{
+          openshift.withCluster() {
+            openshift.withProject() {
+              def bc = openshift.selector("bc",templateName).related('builds')
+              /* timeout(10){
+                bc.untilEach(1){
+                  return (it.object().status.phase == "Complete")
+                }
+              }*/
+            }
+          }
+        }
+      }   
+    }// end of stage 'build'
+    
   }// end of stages
   
 }// end of pipeline
