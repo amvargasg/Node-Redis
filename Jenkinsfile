@@ -65,6 +65,11 @@ pipeline {
           openshift.withCluster() {
             openshift.withProject() {
               def bc = openshift.selector("bc",templateName).related('builds')
+              timeout(5) { 
+                      openshift.selector("dc", templateName).related('pods').untilEach(1) {
+                        return (it.object().status.phase == "Running")
+                      }
+                    }
             }
           }
         }
