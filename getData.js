@@ -13,9 +13,15 @@ app.post('/proteccion/:key', (req, res) => {
 
    var key = req.params.key;
    
- // Use fs.readFile() method to read the file
+// Use fs.readFile() method to read the file
+ if (key == 'ConsultaEstadoAfiliadoEmpleador') {
+  file = 'linea_negocio4.xml';
+ }
  if (key == 'APIPersonasDetalleProductosObtenerPoductoAfiliado') {
-   fs.readFile('input.xml', "utf8", (err, data) => { 
+  file = 'input.xml';
+}
+
+  fs.readFile(file, "utf8", (err, data) => { 
     xml2js.parseString(data, (err, result) => {
        if(err) {
            throw err;
@@ -31,13 +37,10 @@ app.post('/proteccion/:key', (req, res) => {
          error: false,
          message: `Datos correctamente insertados en Redis`,
          //data: result
-       });
-       
+       }); 
     });
  });
- }
-
- });
+});
 
  app.get('/proteccion', (req, res) =>{
   try {

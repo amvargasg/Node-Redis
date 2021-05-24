@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-    }
+    }// end of stage 'preamble'
     
     stage('cleanup') {
       steps {
@@ -36,7 +36,7 @@ pipeline {
             }
         }
       }
-    }
+    } // end of stage 'cleanup'
     
     stage('create') {
         
@@ -52,40 +52,60 @@ pipeline {
         script {
             openshift.withCluster() {
                 openshift.withProject() {
-                  def created = openshift.newApp(templatePath,  "--as-deployment-config"  )
-                  echo "new-app created ${created.count()} objects named: ${created.names()}"
-                  created.describe()
-                  echo "The build config which new-app just created"
-                  def bc = created.narrow('bc')
-                  echo "${bc.describe()}"
-                  /*echo "build logs"
-                  def result = bc.logs('-f')
-                  echo "The logs operation require ${result.actions.size()} oc interactions"
-                  echo "oc command executed"
-                  echo "Logs executed: ${result.actions[0].cmd}"
-                  */  
+                  openshift.newApp('--name node-redis', templatePath, '--strategy=docker', '--as-deployment-config')
+                
                 }
             }
         }
       }
-    }
+    }// end of stage 'create'
     
     stage('build') {
-        steps{
-            script {
-                sh 'oc start-build node-redis'
-                /* openshift.withCluster() {
-                    openshift.withProject() {
-                        
-                        def buildSelector = bc.startBuild('node-redis')
-                        //buildSelector.logs('-f')
+        steps {
+          script{
+          openshift.withCluster() {
+            openshift.withProject() {
+              def bc = openshift.selector("bc",templateName).related('builds')
+              timeout(5) { 
+                      openshift.selector("dc", templateName).related('pods').untilEach(1) {
+                        return (it.object().status.phase == "Running")
+                      }
                     }
-                } */
+            }
+          }
+        }
+      }   
+    }// end of stage 'build'
+    
+    stage('deploy') {
+        steps {
+          script {
+              openshift.withCluster() {
+                  openshift.withProject() {
+                    def rm = openshift.selector("dc", templateName).rollout().latest()
+                    timeout(5) { 
+                      openshift.selector("dc", templateName).related('pods').untilEach(1) {
+                        return (it.object().status.phase == "Running")
+                      }
+                    }
+                  }
+              }
+          }
+        }
+    }// end of stage 'deploy'
+    
+    stage('tag') {
+      steps {
+        script {
+            openshift.withCluster() {
+                openshift.withProject() {
+                  openshift.tag("${templateName}:latest", "${templateName}-staging:latest") 
+                }
             }
         }
-        
-    }
+      }
+    }// end of stage 'tag'
+    
+  }// end of stages
   
-  }  
-  
-}
+}// end of pipeline
