@@ -52,7 +52,9 @@ pipeline {
         script {
             openshift.withCluster() {
                 openshift.withProject() {
-                  sh 'oc new-app --name node-redis nodejs:latest~https://github.com/mariaelisacf/Node-Redis --strategy=docker --as-deployment-config'
+                  //sh 'oc new-app --name node-redis nodejs:latest~https://github.com/mariaelisacf/Node-Redis --strategy=docker --as-deployment-config'
+                  openshift.newApp('--name node-redis', templatePath, '--strategy=docker', '--as-deployment-config')
+                
                 }
             }
         }
