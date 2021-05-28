@@ -1,46 +1,67 @@
-<Service name="APIPersonasDetalleProductos" operation="ObtenerProductoAfiliado" type="CUSTOM">
-  <CMM_XSLT_Rq>{co.com.sofka.esb.fw.core.receiver}:BrokerReceiver_TO_ESBCanonico</CMM_XSLT_Rq>
-  <CMM_XSLT_Rs>{co.com.sofka.esb.fw.core.receiver}:ESBCanonico_TO_BrokerReceiver</CMM_XSLT_Rs>
-  <Timeout>30</Timeout>
-  <URI>Q_FW_APLO_GATEWAY_IN</URI>
-  <Email>pendiente@proteccion.com.co</Email>
-  <AutoCallback>N</AutoCallback>
-  <StoreForwardBatchCount>0</StoreForwardBatchCount>
-  <GatewayInlineMode>N</GatewayInlineMode>
-  <ControllerProxy name="ConsultaProductoAfiliado_CNTRLR" bypass="Y">
-    <URI>Q.CNTRLR.APICONSULTAPRODUCTO.AFILIADO.IN</URI>
-    <FMGProxy name="ConsultaInformacionPersona_AIF" bypass="Y">
-      <URI>Q_FW_AFP_DEFAULT_AIF_IN</URI>
-      <Adapter name="SOAPHTTPADAPTER">
-        <URI>Q_FW_MDM_WS_ADAPTER_IN</URI>
-        <XSLTRq>{co.com.proteccion.integracion.afp.persona.adapter.ws}:ESBCanonico_TO_PersonasService_consultarInformacionPersonas</XSLTRq>
-        <XSLTRs>{co.com.proteccion.integracion.afp.persona.adapter.ws}:PersonasService_consultarInformacionPersonas_TO_ESBCanonico</XSLTRs>
-        <EndPointURL>https://afpcorepruebas.proteccion.local/ServiciosMediacionWS/PersonasService</EndPointURL>
-        <LegacyServiceOperationName>consultarInformacionPersonas</LegacyServiceOperationName>
-        <SOAPActionName>http://client.personas.previsiona.heinsohn.com//consultarInformacionPersonas</SOAPActionName>
-        <LegacyServiceName>PersonasService</LegacyServiceName>
-        <TimeOutSeconds>15</TimeOutSeconds>
-        <Destination>AFP-CORE</Destination>
-        <CommunicatorEndPointURL>Q_FW_MDM_WS_ASYNC_COMM_IN</CommunicatorEndPointURL>
-        <RetryMaxCount>0</RetryMaxCount>
-        <RetryDelay>0</RetryDelay>
-        <GenerateCustomHeaders>N</GenerateCustomHeaders>
-      </Adapter>
-    </FMGProxy>
-    <FMGProxy name="ConsultaProductoAfiliado_AIF" bypass="Y">
-      <URI>Q_FW_MDM_DEFAULT_AIF_IN</URI>
-      <Adapter name="DATABASEADAPTER">
-        <URI>Q_FW_DB_MDM_ADAPTER_IN</URI>
-        <EndPointURL>Q.DBCOMM.MDM.AFILIADOPRODUCTOCONSULTA.IN</EndPointURL>
-        <LegacyServiceOperationName>AfiliadoProductoConsultaAFP</LegacyServiceOperationName>
-        <SOAPActionName>Q_FW_DB_MDM_ADAPTER_RECEIVE</SOAPActionName>
-        <LegacyServiceName>AfiliadoProductoConsultaAFP</LegacyServiceName>
-        <TimeOutSeconds>80</TimeOutSeconds>
-        <Destination>AFP-CORE</Destination>
-        <RetryMaxCount>0</RetryMaxCount>
-        <RetryDelay>0</RetryDelay>
-        <GenerateCustomHeaders>N</GenerateCustomHeaders>
-      </Adapter>
-    </FMGProxy>
-  </ControllerProxy> 
-</Service>
+<Data>
+<WMB_FW_CORE_ROUTING_MST>
+         <gatewayInQ>Q_FW_GATEWAY_IN</gatewayInQ>
+         <gatewayOutQ>Q_FW_GATEWAY_OUT</gatewayOutQ>
+         <timerQ>Q_FW_TIMEOUTHANDLER_IN</timerQ>
+         <gatewayCallerQ>Q_FW_GATEWAYCALLER_IN</gatewayCallerQ>
+</WMB_FW_CORE_ROUTING_MST>
+<WMB_FW_GLOBAL_PARAM_MST>
+        <DB2_SERVER>10.65.1.79</DB2_SERVER>
+        <DB2_USER>INTGCXN2</DB2_USER>
+        <DB2_PASSWORD>colombia1</DB2_PASSWORD>
+        <FWK_ADAPTER_DB_IGNOREEXPMSG>Y</FWK_ADAPTER_DB_IGNOREEXPMSG>
+        <FWK_ADAPTER_DB_MAXRESPTIME>75</FWK_ADAPTER_DB_MAXRESPTIME> 
+        <FWK_TRV_AUDIT_SPLUNK_ENABLE>Y</FWK_TRV_AUDIT_SPLUNK_ENABLE>
+        <FWK_TRV_AUDIT_DB_MSG_ENABLE>Y</FWK_TRV_AUDIT_DB_MSG_ENABLE>
+        <FWK_TRV_AUDIT_SPLUNK_MQNAME>Q.SUBS.SPLUNK.EVENTOS_INTEGRACION</FWK_TRV_AUDIT_SPLUNK_MQNAME>
+        <FWK_TRV_AUDIT_SPLUNK_MSG_ENABLE>Y</FWK_TRV_AUDIT_SPLUNK_MSG_ENABLE>
+</WMB_FW_GLOBAL_PARAM_MST>
+<ESBMetaDataOrchestration xmlns="http://www.sofka.com.co/Data/Canonico/ESB/Framework">
+            <Service name="APIPersonasDetalleProductos" operation="ObtenerProductoAfiliado" type="CUSTOM">
+                <CMM_XSLT_Rq>{co.com.sofka.esb.fw.core.receiver}:BrokerReceiver_TO_ESBCanonico</CMM_XSLT_Rq>
+                <CMM_XSLT_Rs>{co.com.sofka.esb.fw.core.receiver}:ESBCanonico_TO_BrokerReceiver</CMM_XSLT_Rs>
+                <Timeout>30</Timeout>
+                <URI>Q_FW_GATEWAY_IN</URI>
+                <Email>pendiente@proteccion.com.co</Email>
+                <AutoCallback>N</AutoCallback>
+                <StoreForwardBatchCount>0</StoreForwardBatchCount>
+                <GatewayInlineMode>N</GatewayInlineMode>
+                <ControllerProxy name="ConsultaProductoAfiliado_CNTRLR" bypass="Y">
+                    <URI>Q.CNTRLR.APICONSULTAPRODUCTO.AFILIADO.IN</URI>
+                    <FMGProxy name="ConsultaInformacionPersona_AIF" bypass="Y">
+                        <URI>Q_FW_DEFAULT_AIF_IN</URI>
+                        <Adapter name="SOAPHTTPADAPTER">
+                            <URI>Q_FW_WS_ADAPTER_IN</URI>
+                            <XSLTRq>{co.com.proteccion.integracion.afp.persona.adapter.ws}:ESBCanonico_TO_PersonasService_consultarInformacionPersonas</XSLTRq>
+                            <XSLTRs>{co.com.proteccion.integracion.afp.persona.adapter.ws}:PersonasService_consultarInformacionPersonas_TO_ESBCanonico</XSLTRs>
+                            <EndPointURL>https://172.30.68.2:443/ServiciosMediacionWS/PersonasService</EndPointURL>
+                            <LegacyServiceOperationName>consultarInformacionPersonas</LegacyServiceOperationName>
+                            <SOAPActionName>http://client.personas.previsiona.heinsohn.com//consultarInformacionPersonas</SOAPActionName>
+                            <LegacyServiceName>PersonasService</LegacyServiceName>
+                            <TimeOutSeconds>15</TimeOutSeconds>
+                            <Destination>AFP-CORE</Destination>
+                            <CommunicatorEndPointURL>Q_FW_WS_ASYNC_COMMUNICATOR_IN</CommunicatorEndPointURL>
+                            <RetryMaxCount>0</RetryMaxCount>
+                            <RetryDelay>0</RetryDelay>
+                            <GenerateCustomHeaders>N</GenerateCustomHeaders>
+                        </Adapter>
+                    </FMGProxy>
+                    <FMGProxy name="ConsultaProductoAfiliado_AIF" bypass="Y">
+                        <URI>Q_FW_DEFAULT_AIF_IN</URI>
+                        <Adapter name="DATABASEADAPTER">
+                            <URI>Q_FW_DB_ADAPTER_IN</URI>
+                            <EndPointURL>Q.DBCOMM.MDM.AFILIADOPRODUCTOCONSULTA.IN</EndPointURL>
+                            <LegacyServiceOperationName>AfiliadoProductoConsultaAFP</LegacyServiceOperationName>
+                            <SOAPActionName>Q_FW_DB_ADAPTER_RECEIVE</SOAPActionName>
+                            <LegacyServiceName>AfiliadoProductoConsultaAFP</LegacyServiceName>
+                            <TimeOutSeconds>80</TimeOutSeconds>
+                            <Destination>AFP-CORE</Destination>
+                            <RetryMaxCount>0</RetryMaxCount>
+                            <RetryDelay>0</RetryDelay>
+                            <GenerateCustomHeaders>N</GenerateCustomHeaders>
+                        </Adapter>
+                    </FMGProxy>
+                </ControllerProxy>
+            </Service>
+</ESBMetaDataOrchestration>
+</Data>
